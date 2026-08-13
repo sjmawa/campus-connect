@@ -25,3 +25,11 @@ class LostFoundItemSerializer(serializers.ModelSerializer):
             'updated_at',
         )
         read_only_fields = ('id', 'reported_by', 'created_at', 'updated_at')
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        contact = ret.get('contact_info')
+        if not contact or contact.strip() in ['', 'Contact me via app', 'C']:
+            ret['contact_info'] = instance.user.email
+        return ret
+

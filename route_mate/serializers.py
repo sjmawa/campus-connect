@@ -1,5 +1,16 @@
+import re
 from rest_framework import serializers
 from .models import Route, RouteJoinRequest
+
+PHONE_REGEX = r'^(?:\+8801|01)[3-9]\d{8}$'
+
+def normalize_and_validate_bd_phone(value):
+    if not value:
+        return value
+    normalized = re.sub(r'[\s-]', '', value)
+    if not re.match(PHONE_REGEX, normalized):
+        raise serializers.ValidationError("Enter a valid phone number (11 digits starting with 01, or +880 followed by 10 digits).")
+    return normalized
 
 
 class RouteJoinRequestSerializer(serializers.ModelSerializer):

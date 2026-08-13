@@ -46,7 +46,7 @@ class Route(models.Model):
         default='ACTIVE'
     )
     contact_info = models.CharField(
-        max_length=250,
+        max_length=15,
         blank=True,
         help_text='Contact info unlocked only after a match request is accepted'
     )
@@ -85,7 +85,7 @@ class RouteJoinRequest(models.Model):
     )
     note = models.TextField(blank=True)
     requester_contact_info = models.CharField(
-        max_length=250,
+        max_length=15,
         blank=True,
         help_text='Contact details shared by requester once request is accepted'
     )
